@@ -32,7 +32,7 @@ export const Bikes = () => {
         return (
             <Link to={`/bikes/${bike.id}`} key={bike.id}>
                 <div>
-                    <img src={bike.imageUrl} alt={bike.name} className="rounded-xl" />
+                    <img src={bike.imageUrl} alt={bike.name} className="rounded-xl drop-shadow-2xl" />
                     <div className="my-2 flex justify-between items-center">
                         <h3>{bike.name}</h3>
                         <p>₹{bike.price} /day</p>
@@ -52,7 +52,7 @@ export const Bikes = () => {
                 <Button>Rugged</Button>
             </div>
 
-            <div className="grid gri-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-5">
+            <div className="grid gri-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
                 {bikeListing}
             </div>
         </div>

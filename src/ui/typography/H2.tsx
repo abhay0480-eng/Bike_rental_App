@@ -6,6 +6,6 @@ interface H2Props {
 
 export const H2 = ({ children }: H2Props) => {
     return (
-        <h2 className="text-[#161616] font-bold text-3xl">{children}</h2>
+        <h2 className="text-[#161616] font-bold text-3xl ">{children}</h2>
     )
 }

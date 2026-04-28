@@ -7,7 +7,7 @@ export const Home = () => {
 
                 <div className="absolute inset-0 bg-black/50"></div>
                 <div >
-                    <h1 className="relative z-10 text-8xl font-extrabold text-white text-center px-4">
+                    <h1 className="relative z-10 text-4xl  md:text-6xl xl:8xl font-extrabold text-white text-center px-4">
                         You got the travel plans, we got the travel bikes.
                     </h1>
                     <Link to='/bikes' >
