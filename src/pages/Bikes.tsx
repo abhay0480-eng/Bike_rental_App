@@ -3,9 +3,16 @@ import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 import { Link } from "react-router"
 
+interface Bike {
+    id: string
+    name: string
+    imageUrl: string
+    price: number
+    type: string
+}
 
 export const Bikes = () => {
-    const [bikesData, setBikesData] = useState([])
+    const [bikesData, setBikesData] = useState<Bike[]>([])
 
     const getBikesData = async () => {
         try {
@@ -13,7 +20,7 @@ export const Bikes = () => {
             const resBikesData = await reqBikesData.json()
             setBikesData(resBikesData)
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error instanceof Error ? error.message : String(error))
         }
     }
 
@@ -23,7 +30,7 @@ export const Bikes = () => {
 
     const bikeListing = bikesData.map((bike) => {
         return (
-            <Link to={`/bikes/${bike.id}`}>
+            <Link to={`/bikes/${bike.id}`} key={bike.id}>
                 <div>
                     <img src={bike.imageUrl} alt={bike.name} className="rounded-xl" />
                     <div className="my-2 flex justify-between items-center">
@@ -36,7 +43,6 @@ export const Bikes = () => {
         )
     })
 
-    console.log("bikesData", bikesData)
     return (
         <div className="p-10 my-5">
             <H2>Explore our Bikes and Scooty options</H2>
