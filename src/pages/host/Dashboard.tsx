@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router"
 
+interface Bike {
+    id: string
+    name: string
+    imageUrl: string
+    price: number
+    type: string
+    description: string
+}
 
 export const Dashboard = () => {
-    const [hostBikeList, setHostBikeList] = useState([])
+    const [hostBikeList, setHostBikeList] = useState<Bike[]>([])
 
     const getHostBikes = async () => {
         try {
@@ -21,7 +29,7 @@ export const Dashboard = () => {
 
     const displayHostBikesList = hostBikeList.map((bike) => {
         return (
-            <Link to={`/host/hostBikes/${bike.id}`}>
+            <Link key={bike.id} to={`/host/bikes/${bike.id}`}>
                 <div className="bg-[#FFEAD0] w-full p-5 flex justify-between items-center my-5 rounded">
                     <div className="flex gap-4">
                         <img src={bike.imageUrl} alt="" className="w-16 h-16 rounded" />
