@@ -3,13 +3,21 @@ import { useParams } from "react-router"
 import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 
+interface Bike {
+    id: string
+    name: string
+    imageUrl: string
+    price: number
+    type: string
+    description: string
+}
 
 export const BikeDetail = () => {
 
     const param = useParams()
     console.log("param", param.id)
 
-    const [bikeDetail, setBikeDetail] = useState(null)
+    const [bikeDetail, setBikeDetail] = useState<Bike | null>(null)
 
     const getBikeDetail = async () => {
         try {
