@@ -10,6 +10,9 @@ import { HostBikes } from "./pages/host/HostBikes.tsx"
 import { HostDetailBikes } from "./pages/host/HostDetailBikes.tsx"
 import { Reviews } from "./pages/host/Reviews.tsx"
 import { Income } from "./pages/host/Income.tsx"
+import { HostBikeDetail } from "./pages/host/HostBikeDetail.tsx"
+import { HostBikePricing } from "./pages/host/HostBikePricing.tsx"
+import { HostBikePhotos } from "./pages/host/HostBikePhotos.tsx"
 
 
 function App() {
@@ -26,7 +29,11 @@ function App() {
             <Route path="host" element={<Host />}>
               <Route index element={<Dashboard />} />
               <Route path="bikes" element={<HostBikes />} />
-              <Route path="bikes/:id" element={<HostDetailBikes />} />
+              <Route path="bikes/:id" element={<HostDetailBikes />} >
+                <Route index element={<HostBikeDetail />} />
+                <Route path="pricing" element={<HostBikePricing />} />
+                <Route path="photos" element={<HostBikePhotos />} />
+              </Route>
               <Route path="reviews" element={<Reviews />} />
               <Route path="income" element={<Income />} />
             </Route>

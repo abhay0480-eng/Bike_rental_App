@@ -1,9 +1,57 @@
+import { useEffect, useState } from "react"
+import { Link, Outlet, useParams } from "react-router"
 
+interface Bike {
+    id: string
+    name: string
+    imageUrl: string
+    price: number
+    type: string
+    description: string
+}
 
 export const HostDetailBikes = () => {
+    const param = useParams()
+    console.log("param", param.id)
+
+    const [bikeDetail, setBikeDetail] = useState<Bike | null>(null)
+
+    const getBikeDetail = async () => {
+        try {
+            const reqBikeDetail = await fetch(`https://bike-rental-server-srsy.onrender.com/api/${param.id}`)
+            const resBikeDetail = await reqBikeDetail.json()
+            setBikeDetail(resBikeDetail[0])
+        } catch (error) {
+
+        }
+    }
+
+    useEffect(() => {
+        getBikeDetail()
+    }, [])
+
+    console.log("bikeDetail", bikeDetail)
     return (
         <div>
-            HostDetailBikes here
+            <div className="p-10 my-5 border border-black rounded ">
+                <div className="flex gap-5">
+                    <img src={bikeDetail?.imageUrl} alt="" className="w-2xs drop-shadow-2xl rounded-2xl " />
+                    <div>
+                        <button className="">{bikeDetail?.type}</button>
+                        <h2>{bikeDetail?.name}</h2>
+                        <p>{bikeDetail?.price}</p>
+                    </div>
+                </div>
+                <div className="my-10">
+                    <nav className=" flex gap-5 text-[#4D4D4D] text-base font-semibold">
+                        <Link to={`/host/bikes/${bikeDetail?.id}`}>Details</Link>
+                        <Link to={`/host/bikes/${bikeDetail?.id}/pricing`}>Pricing</Link>
+                        <Link to={`/host/bikes/${bikeDetail?.id}/photos`}>Photos</Link>
+                    </nav>
+                </div>
+                <Outlet context={{ bikeDetail }} />
+
+            </div>
         </div>
     )
 }
