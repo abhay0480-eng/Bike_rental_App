@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react"
 import { Link, Outlet, useParams } from "react-router"
+import { H2 } from "../../ui/typography/H2"
 
 interface Bike {
     id: string
@@ -11,7 +12,7 @@ interface Bike {
 }
 
 export const HostDetailBikes = () => {
-    const param = useParams()
+    const param = useParams()  
     console.log("param", param.id)
 
     const [bikeDetail, setBikeDetail] = useState<Bike | null>(null)
@@ -38,7 +39,7 @@ export const HostDetailBikes = () => {
                     <img src={bikeDetail?.imageUrl} alt="" className="w-2xs drop-shadow-2xl rounded-2xl " />
                     <div>
                         <button className="">{bikeDetail?.type}</button>
-                        <h2>{bikeDetail?.name}</h2>
+                        <H2 size="[26px]">{bikeDetail?.name}</H2>
                         <p>{bikeDetail?.price}</p>
                     </div>
                 </div>

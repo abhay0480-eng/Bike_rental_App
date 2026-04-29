@@ -10,6 +10,7 @@ export const Home = () => {
                     <h1 className="relative z-10 text-4xl  md:text-6xl xl:8xl font-extrabold text-white text-center px-4">
                         You got the travel plans, we got the travel bikes.
                     </h1>
+
                     <Link to='/bikes' >
                         <div className="flex justify-center items-center">
 

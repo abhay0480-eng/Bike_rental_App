@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { useParams } from "react-router"
 import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
+import { Ptag } from "../ui/typography/PTag"
 
 interface Bike {
     id: string
@@ -43,7 +44,7 @@ export const BikeDetail = () => {
             </div>
             <H2>{bikeDetail?.name}</H2>
             <p className="font-bold text-2xl">${bikeDetail?.price}/day</p>
-            <p className="text-base font-medium">{bikeDetail?.description}</p>
+            <Ptag>{bikeDetail?.description}</Ptag>
             <button className="relative bg-[#FF8C38] py-5  rounded-2xl  px-20 text-base font-bold text-white cursor-pointer" >Rent this Bike</button>
         </div>
     )

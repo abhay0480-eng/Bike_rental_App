@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react"
 import { Link } from "react-router"
+import { H2 } from "../../ui/typography/H2"
+import { Ptag } from "../../ui/typography/PTag"
 
 interface Bike {
     id: string
@@ -35,7 +37,7 @@ export const HostBikes = () => {
                         <img src={bike.imageUrl} alt="" className="w-16 h-16 rounded" />
                         <div className="">
                             <h3 className="text-xl font-semibold text-[#161616]">{bike.name}</h3>
-                            <h3>₹{bike.price}/day</h3>
+                            <Ptag color="[#4D4D4D]">₹{bike.price}/day</Ptag>
                         </div>
                     </div>
                     <div>
@@ -49,7 +51,7 @@ export const HostBikes = () => {
     return (
         <div className="p-5  my-10">
             <div className="flex justify-between items-center my-3">
-                <h3>Your listed Bikes</h3>
+                <H2>Your listed Bikes</H2>
                 <p>View All</p>
             </div>
             {displayHostBikesList}
