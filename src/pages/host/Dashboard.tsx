@@ -15,7 +15,7 @@ export const Dashboard = () => {
 
     const getHostBikes = async () => {
         try {
-            const reqHostBikes = await fetch("https://bike-rental-server-srsy.onrender.com/api")
+            const reqHostBikes = await fetch("https://bike-rental-server-srsy.onrender.com/api/host/bikes/123")
             const resHostBikes = await reqHostBikes.json()
             setHostBikeList(resHostBikes)
         } catch (error) {
