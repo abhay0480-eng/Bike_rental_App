@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { Link, Outlet, useParams } from "react-router"
 import { H2 } from "../../ui/typography/H2"
+import { Chip } from "../../ui/sharedUiComponents/Chip"
+import { Ptag } from "../../ui/typography/PTag"
 
 interface Bike {
     id: string
@@ -38,9 +40,9 @@ export const HostDetailBikes = () => {
                 <div className="flex gap-5">
                     <img src={bikeDetail?.imageUrl} alt="" className="w-2xs drop-shadow-2xl rounded-2xl " />
                     <div>
-                        <button className="">{bikeDetail?.type}</button>
+                        <Chip variant={bikeDetail?.type}>{bikeDetail?.type}</Chip>
                         <H2 size="[26px]">{bikeDetail?.name}</H2>
-                        <p>{bikeDetail?.price}</p>
+                        <Ptag size="2xl">{bikeDetail?.price}</Ptag>
                     </div>
                 </div>
                 <div className="my-10">

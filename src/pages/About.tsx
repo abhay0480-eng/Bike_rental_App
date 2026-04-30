@@ -1,6 +1,7 @@
 import { Link } from "react-router"
 import { H2 } from "../ui/typography/H2"
 import { Ptag } from "../ui/typography/PTag"
+import { Button } from "../ui/sharedUiComponents/Button"
 
 export const About = () => {
     return (
@@ -19,7 +20,7 @@ export const About = () => {
                     <h2 className="text-2xl font-bold text-[#161616]">Your destination is waiting.
                         Your van is ready.</h2>
                     <Link to='/bikes'>
-                        <button className="bg-[#161616] px-3 py-2 text-white rounded-xl mt-5">Explore our Bikes</button>
+                        <Button bgBtnColor="[#161616]" btnWidth="64" >Explore our Bikes</Button>
                     </Link>
                 </div>
             </div>

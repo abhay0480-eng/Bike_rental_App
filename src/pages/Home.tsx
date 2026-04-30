@@ -1,4 +1,5 @@
 import { Link } from "react-router"
+import { Button } from "../ui/sharedUiComponents/Button"
 
 export const Home = () => {
     return (
@@ -14,7 +15,8 @@ export const Home = () => {
                     <Link to='/bikes' >
                         <div className="flex justify-center items-center">
 
-                            <button className="relative bg-[#FF8C38] py-5 w-[70%] rounded-2xl my-20 px-20 text-base font-bold text-white cursor-pointer" >Find your Bike</button>
+                            {/* <button className="relative bg-[#FF8C38] py-5 w-[70%] rounded-2xl my-20 px-20 text-base font-bold text-white cursor-pointer" ></button> */}
+                            <Button>Find your Bike</Button>
                         </div>
                     </Link>
 

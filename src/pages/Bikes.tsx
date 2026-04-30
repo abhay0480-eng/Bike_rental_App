@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 import { Link } from "react-router"
+import { Chip } from "../ui/sharedUiComponents/Chip"
 
 interface Bike {
     id: string
@@ -37,7 +38,7 @@ export const Bikes = () => {
                         <h3>{bike.name}</h3>
                         <p>₹{bike.price} /day</p>
                     </div>
-                    <Button>{bike.type}</Button>
+                    <Chip variant={bike.type}>{bike.type}</Chip>
                 </div>
             </Link>
         )

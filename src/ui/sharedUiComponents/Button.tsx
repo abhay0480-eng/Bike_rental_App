@@ -1,11 +1,28 @@
 import type { ReactNode } from "react"
+import { cn } from "../../utility/cn"
 
 interface ButtonProps {
-    children: ReactNode
+    children: ReactNode,
+    bgBtnColor?: string,
+    btnTextColor?: string,
+    btnTextSize?: string,
+    btnFontWeight?: string,
+    btnWidth?: string
+
 }
 
-export const Button = ({ children }: ButtonProps) => {
+
+export const Button = ({ children, bgBtnColor, btnTextColor, btnTextSize, btnFontWeight, btnWidth, ...rest }: ButtonProps) => {
+    const bgColor = bgBtnColor && `bg-${bgBtnColor}`
+    const textColor = btnTextColor && `text-${btnTextColor}`
+    const textSize = btnTextSize && `text-${btnTextSize}`
+    const fontWeight = btnFontWeight && `font-${btnFontWeight}`
+    const width = btnWidth && `w-${btnWidth}`
+
     return (
-        <button className="bg-[#FFEAD0] w-2xs  px-3 py-2 rounded text-[#4D4D4D] text-base font-medium">{children}</button>
+        <button {...rest} className={cn(
+            "bg-[#FF8C38] text-lg font-bold text-white rounded w-full py-2 px-3 my-5 relative",
+            bgColor, textColor, textSize, fontWeight, width
+        )}>{children}</button>
     )
 }

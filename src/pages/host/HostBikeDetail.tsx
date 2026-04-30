@@ -16,7 +16,7 @@ export const HostBikeDetail = () => {
     console.log("bikeDetail", bikeDetail)
     return (
         <div className="flex gap-3 items-start">
-            <span className="text-base font-bold text-[#161616] my-3">Description:</span> <Ptag> {bikeDetail?.description}</Ptag>
+            <span className="text-base font-bold text-[#161616] my-3 ">Description:</span> <Ptag> {bikeDetail?.description}</Ptag>
         </div>
     )
 }

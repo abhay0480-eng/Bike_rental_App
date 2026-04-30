@@ -3,6 +3,7 @@ import { useParams } from "react-router"
 import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 import { Ptag } from "../ui/typography/PTag"
+import { Chip } from "../ui/sharedUiComponents/Chip"
 
 interface Bike {
     id: string
@@ -40,7 +41,7 @@ export const BikeDetail = () => {
         <div className="max-w-10/12 mx-auto overflow-hidden py-5 mb-5 flex flex-col gap-3">
             <div className="">
                 <img src={bikeDetail?.imageUrl} alt="" className="w-lg my-10 rounded-2xl drop-shadow-xl" />
-                <Button>{bikeDetail?.type}</Button>
+                <Chip variant={bikeDetail?.type}>{bikeDetail?.type}</Chip>
             </div>
             <H2>{bikeDetail?.name}</H2>
             <p className="font-bold text-2xl">${bikeDetail?.price}/day</p>
