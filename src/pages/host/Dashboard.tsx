@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router"
 import { H2 } from "../../ui/typography/H2"
 import { Ptag } from "../../ui/typography/PTag"
+import { ShimHostBikesUI } from "../../ui/ShimmerUI/ShimHostBikesUI"
 
 interface Bike {
     id: string
@@ -14,14 +15,19 @@ interface Bike {
 
 export const Dashboard = () => {
     const [hostBikeList, setHostBikeList] = useState<Bike[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+
 
     const getHostBikes = async () => {
         try {
+            setIsLoading(true)
             const reqHostBikes = await fetch("https://bike-rental-server-srsy.onrender.com/api/host/bikes/123")
             const resHostBikes = await reqHostBikes.json()
             setHostBikeList(resHostBikes)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -42,12 +48,11 @@ export const Dashboard = () => {
                     </div>
                     <div>
                         <p>Edit</p>
-                    </div>
+                    </div> 
                 </div>
             </Link>
         ) 
     })
-
 
     return (
         <div className="my-10">
@@ -65,12 +70,12 @@ export const Dashboard = () => {
                 </div>
             </div>
 
-            <div className="p-5 border border-black rounded my-10">
+            <div className="p-5 border border-gray-300 rounded my-10">
                 <div className="flex justify-between items-center my-3">
                     <h3>Your listed Bikes</h3>
                     <p>View All</p>
                 </div>
-                {displayHostBikesList}
+                {isLoading ? <><ShimHostBikesUI /></> : <>{displayHostBikesList}</>}
             </div>
 
         </div>

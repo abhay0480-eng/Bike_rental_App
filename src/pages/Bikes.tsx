@@ -3,6 +3,7 @@ import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 import { Link } from "react-router"
 import { Chip } from "../ui/sharedUiComponents/Chip"
+import { ShimBikesListing } from "../ui/ShimmerUI/ShimBikesListing"
 
 interface Bike {
     id: string
@@ -14,14 +15,18 @@ interface Bike {
 
 export const Bikes = () => {
     const [bikesData, setBikesData] = useState<Bike[]>([])
+    const [isLoading, setIsLoading] = useState(false)
 
     const getBikesData = async () => {
         try {
+            setIsLoading(true)
             const reqBikesData = await fetch("https://bike-rental-server-srsy.onrender.com/api")
             const resBikesData = await reqBikesData.json()
             setBikesData(resBikesData)
         } catch (error) {
             throw new Error(error instanceof Error ? error.message : String(error))
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -31,6 +36,7 @@ export const Bikes = () => {
 
     const bikeListing = bikesData.map((bike) => {
         return (
+            <>
             <Link to={`/bikes/${bike.id}`} key={bike.id}>
                 <div>
                     <img src={bike.imageUrl} alt={bike.name} className="rounded-xl drop-shadow-2xl" />
@@ -38,11 +44,17 @@ export const Bikes = () => {
                         <h3>{bike.name}</h3>
                         <p>₹{bike.price} /day</p>
                     </div>
-                    <Chip variant={bike.type}>{bike.type}</Chip>
+                        <Chip variant={bike.type}>
+                            {bike.type}
+                        </Chip>
                 </div>
-            </Link>
+                </Link> 
+            </>
         )
     })
+
+
+
 
     return (
         <div className="p-10 my-5">
@@ -52,9 +64,8 @@ export const Bikes = () => {
                 <Button>Luxury</Button>
                 <Button>Rugged</Button>
             </div>
-
             <div className="grid gri-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
-                {bikeListing}
+                {isLoading ? <><ShimBikesListing /></> : <>{bikeListing}</>}
             </div>
         </div>
     )

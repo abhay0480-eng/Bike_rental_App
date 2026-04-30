@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import { Link } from "react-router"
 import { H2 } from "../../ui/typography/H2"
 import { Ptag } from "../../ui/typography/PTag"
+import { ShimHostBikesUI } from "../../ui/ShimmerUI/ShimHostBikesUI"
 
 interface Bike {
     id: string
@@ -14,14 +15,19 @@ interface Bike {
 
 export const HostBikes = () => {
     const [hostBikeList, setHostBikeList] = useState<Bike[]>([])
+    const [isLoading, setIsLoading] = useState(false)
+
 
     const getHostBikes = async () => {
         try {
+            setIsLoading(true)
             const reqHostBikes = await fetch("https://bike-rental-server-srsy.onrender.com/api/host/bikes/123")
             const resHostBikes = await reqHostBikes.json()
             setHostBikeList(resHostBikes)
         } catch (error) {
             console.log(error)
+        } finally {
+            setIsLoading(false)
         }
     }
 
@@ -55,6 +61,7 @@ export const HostBikes = () => {
                 <p>View All</p>
             </div>
             {displayHostBikesList}
+            {isLoading ? <><ShimHostBikesUI /></> : <>{displayHostBikesList}</>}
         </div>
     )
 }
