@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { useParams } from "react-router"
-import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 import { Ptag } from "../ui/typography/PTag"
 import { Chip } from "../ui/sharedUiComponents/Chip"

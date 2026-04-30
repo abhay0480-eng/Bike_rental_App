@@ -16,7 +16,7 @@ export const Chip = ({ children, variant, ...rest }: ChipsProps) => {
         luxury: "bg-[#161616]"
     }
 
-    const choosenVariant = variantObj[variant?.toLowerCase()]
+    const choosenVariant = variantObj[(variant?.toLowerCase() ?? 'simple') as keyof typeof variantObj]
 
 
     return (
