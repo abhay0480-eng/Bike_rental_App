@@ -30,7 +30,7 @@ export const BikeDetail = () => {
             const resBikeDetail = await reqBikeDetail.json()
             setBikeDetail(resBikeDetail[0])
         } catch (error) {
-            throw new Error(error)
+            throw new Error(error instanceof Error ? error.message : String(error))
         } finally {
             setIsLoading(false)
         }
