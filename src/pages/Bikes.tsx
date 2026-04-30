@@ -1,9 +1,10 @@
 import { useEffect, useState } from "react"
 import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
-import { Link } from "react-router"
+import { Link, useSearchParams } from "react-router"
 import { Chip } from "../ui/sharedUiComponents/Chip"
 import { ShimBikesListing } from "../ui/ShimmerUI/ShimBikesListing"
+import { Ptag } from "../ui/typography/PTag"
 
 interface Bike {
     id: string
@@ -16,11 +17,15 @@ interface Bike {
 export const Bikes = () => {
     const [bikesData, setBikesData] = useState<Bike[]>([])
     const [isLoading, setIsLoading] = useState(false)
+    const [searchParams, setSearchParams] = useSearchParams();
+    const type = searchParams.get("type")
+    console.log("type", type)
 
     const getBikesData = async () => {
+        const typeData = type ? `?type=${type}` : ""
         try {
             setIsLoading(true)
-            const reqBikesData = await fetch("https://bike-rental-server-srsy.onrender.com/api")
+            const reqBikesData = await fetch(`https://bike-rental-server-srsy.onrender.com/api${typeData}`)
             const resBikesData = await reqBikesData.json()
             setBikesData(resBikesData)
         } catch (error) {
@@ -32,7 +37,7 @@ export const Bikes = () => {
 
     useEffect(() => {
         getBikesData()
-    }, [])
+    }, [type])
 
     const bikeListing = bikesData.map((bike) => {
         return (
@@ -53,13 +58,22 @@ export const Bikes = () => {
         )
     })
 
+    const handleClearFilter = () => {
+        setSearchParams({})
+    }
+
+
+
     return (
         <div className="p-10 my-5">
             <H2>Explore our Bikes and Scooty options</H2>
             <div className="flex items-center gap-3 my-5">
-                <Button>Simple</Button>
-                <Button>Luxury</Button>
-                <Button>Rugged</Button>
+                <Button btnBorder={type === "simple" ? "[#FF8C38]" : ""} bgBtnColor={type === "simple" ? "[#FFCC8D]" : "[#FFEAD0]"} onClick={() => setSearchParams({ type: "simple" })} btnTextColor="[#4D4D4D]" btnWidth="md">Simple</Button>
+
+                <Button btnBorder={type === "luxury" ? "[#FF8C38]" : ""} bgBtnColor={type === "luxury" ? "[#FFCC8D]" : "[#FFEAD0]"} onClick={() => setSearchParams({ type: "luxury" })} btnTextColor="[#4D4D4D]" btnWidth="md">Luxury</Button>
+
+                <Button btnBorder={type === "rugged" ? "[#FF8C38]" : ""} bgBtnColor={type === "rugged" ? "[#FFCC8D]" : "[#FFEAD0]"} onClick={() => setSearchParams({ type: "rugged" })} btnTextColor="[#4D4D4D]" btnWidth="md">Rugged</Button>
+                <Ptag underLine="true" onClick={handleClearFilter}>Clear filters</Ptag>
             </div>
             <div className="grid gri-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-10">
                 {isLoading ? <><ShimBikesListing /></> : <>{bikeListing}</>}
