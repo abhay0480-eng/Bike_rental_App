@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react"
-import { Link, Outlet, useParams } from "react-router"
+import { NavLink, Outlet, useParams } from "react-router"
 import { H2 } from "../../ui/typography/H2"
 import { Chip } from "../../ui/sharedUiComponents/Chip"
 import { Ptag } from "../../ui/typography/PTag"
@@ -55,9 +55,9 @@ export const HostDetailBikes = () => {
                 </div> : <><ShimHostBikeDetailUI /></>}
                 <div className="my-10">
                     <nav className=" flex gap-5 text-[#4D4D4D] text-base font-semibold">
-                        <Link to={`/host/bikes/${bikeDetail?.id}`}>Details</Link>
-                        <Link to={`/host/bikes/${bikeDetail?.id}/pricing`}>Pricing</Link>
-                        <Link to={`/host/bikes/${bikeDetail?.id}/photos`}>Photos</Link>
+                        <NavLink className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to={`/host/bikes/${bikeDetail?.id}`} end={true}>Details</NavLink>
+                        <NavLink className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to={`/host/bikes/${bikeDetail?.id}/pricing`}>Pricing</NavLink>
+                        <NavLink className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to={`/host/bikes/${bikeDetail?.id}/photos`}>Photos</NavLink>
                     </nav>
                 </div>
                 <Outlet context={{ bikeDetail }} />

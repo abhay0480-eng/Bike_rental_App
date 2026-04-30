@@ -37,7 +37,7 @@ export const Bikes = () => {
     const bikeListing = bikesData.map((bike) => {
         return (
             <>
-            <Link to={`/bikes/${bike.id}`} key={bike.id}>
+                <Link to={`/bikes/${bike.id}`} key={bike?.id}>
                 <div>
                     <img src={bike.imageUrl} alt={bike.name} className="rounded-xl drop-shadow-2xl" />
                     <div className="my-2 flex justify-between items-center">
@@ -52,9 +52,6 @@ export const Bikes = () => {
             </>
         )
     })
-
-
-
 
     return (
         <div className="p-10 my-5">

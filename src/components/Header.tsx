@@ -1,5 +1,5 @@
 
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import {
     Bike,
 } from 'lucide-react';
@@ -18,10 +18,13 @@ export const Header = () => {
             </Link>
 
             <nav className=" flex gap-5 text-[#4D4D4D] text-base font-semibold">
-                <Link to="/about">About</Link>
-                <Link to="/bikes">Bikes</Link>
-                <Link to="/host">Host</Link>
-                <Link to="/login">Login</Link>
+                <NavLink
+                    className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to="/about">
+                    About
+                </NavLink>
+                <NavLink className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to="/bikes">Bikes</NavLink>
+                <NavLink className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to="/host">Host</NavLink>
+                <NavLink className={({ isActive }) => isActive ? "underline decoration-red-300 decoration-solid underline-offset-4 text-red-300  decoration-2 text-lg font-bold" : ""} to="/login">Login</NavLink>
             </nav>
         </div>
     )
