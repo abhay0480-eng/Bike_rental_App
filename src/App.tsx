@@ -13,6 +13,8 @@ import { Income } from "./pages/host/Income.tsx"
 import { HostBikeDetail } from "./pages/host/HostBikeDetail.tsx"
 import { HostBikePricing } from "./pages/host/HostBikePricing.tsx"
 import { HostBikePhotos } from "./pages/host/HostBikePhotos.tsx"
+import { Login } from "./pages/Login.tsx"
+import { NotFound } from "./pages/NotFound.tsx"
 
 
 function App() {
@@ -24,6 +26,8 @@ function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<Home />} />
             <Route path="about" element={<About />} />
+            <Route path="*" element={<NotFound />} />
+            <Route path="login" element={<Login />} />
             <Route path="bikes" element={<Bikes />} />
             <Route path="bikes/:id" element={<BikeDetail />} />
             <Route path="host" element={<Host />}>
