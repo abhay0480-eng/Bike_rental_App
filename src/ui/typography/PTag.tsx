@@ -15,7 +15,7 @@ export const Ptag = ({ children, size, color, underLine, ...rest }: PProps) => {
     const underLineText = underLine && `underline underline-offset-4`
     return (
         <p  {...rest} className={cn(
-            `text-[#161616] font-medium text-base my-3`,
+            `text-[#161616] font-medium text-base my-3 `,
             sizeClass, colorClass, underLineText
         )}>{children}</p>
     )

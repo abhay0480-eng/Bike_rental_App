@@ -24,11 +24,11 @@ export const Income = () => {
                         data={[
                             {
                                 "name": "Jan",
-                                "amt": 1400
+                                "amt": 400
                             },
                             {
                                 "name": "Feb",
-                                "amt": 1400
+                                "amt": 100
                             },
                             {
                                 "name": "Mar",
