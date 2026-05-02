@@ -52,7 +52,7 @@ export const Login = () => {
             setLoading(true)
             await login(formData.email, formData.password)
             navigate('/host')
-        } catch (err) {
+        } catch (err: any) {
             console.log(err)
 
             let errorMessage = "Failed to login. Please try again."
