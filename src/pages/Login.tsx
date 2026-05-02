@@ -4,6 +4,7 @@ import { H2 } from "../ui/typography/H2"
 import { Ptag } from "../ui/typography/PTag"
 import { useAuth } from "../context/AuthContext"
 import { useNavigate } from "react-router"
+import { parseFirebaseError } from "../utility/errorHandlers"
 
 type FormErrors = {
     email?: string;
@@ -16,7 +17,7 @@ export const Login = () => {
     const [error, setError] = useState<FormErrors>({})
     const [isLoading, setLoading] = useState(false)
     const { login } = useAuth()
-    const navigate = useNavigate()     
+    const navigate = useNavigate()  
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(pre => ({ ...pre, [event.target.name]: event.target.value }))
@@ -53,21 +54,7 @@ export const Login = () => {
             await login(formData.email, formData.password)
             navigate('/host')
         } catch (err: any) {
-            console.log(err)
-
-            let errorMessage = "Failed to login. Please try again."
-
-            if (err.code === 'auth/invalid-credential') {
-                errorMessage = "Invalid email or password"
-            } else if (err.code === 'auth/user-not-found') {
-                errorMessage = "No account found with this email"
-            } else if (err.code === 'auth/wrong-password') {
-                errorMessage = "Incorrect password"
-            } else if (err.code === 'auth/too-many-requests') {
-                errorMessage = "Too many failed attempts. Try again later."
-            }
-
-            setError({ api: errorMessage })
+            setError({ api: parseFirebaseError({ code: err.code }) })
         } finally {
             setLoading(false)
         }
