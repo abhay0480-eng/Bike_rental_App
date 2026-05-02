@@ -19,4 +19,4 @@ export const Ptag = ({ children, size, color, underLine, ...rest }: PProps) => {
             sizeClass, colorClass, underLineText
         )}>{children}</p>
     )
-}
+}       
