@@ -17,7 +17,10 @@ import { Login } from "./pages/Login.tsx"
 import { NotFound } from "./pages/NotFound.tsx"
 
 
+import { auth } from './config/firebase'
 function App() {
+
+  console.log("Firebase Auth initialized:", auth)
 
   return (
     <>
@@ -30,6 +33,7 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="bikes" element={<Bikes />} />
             <Route path="bikes/:id" element={<BikeDetail />} />
+            {/* <Route path="" element={<AuthRequired />}> */}
             <Route path="host" element={<Host />}>
               <Route index element={<Dashboard />} />
               <Route path="bikes" element={<HostBikes />} />
@@ -42,6 +46,8 @@ function App() {
               <Route path="income" element={<Income />} />
             </Route>
           </Route>
+
+          {/* </Route> */}
         </Routes>
       </BrowserRouter>
     </>
