@@ -4,29 +4,32 @@ import { H2 } from "../ui/typography/H2"
 import { Ptag } from "../ui/typography/PTag"
 import { useAuth } from "../context/AuthContext"
 import { useNavigate } from "react-router"
-import { parseFirebaseError } from "../utility/errorHandlers"
 
 type FormErrors = {
-    email?: string;
-    password?: string;
-    api?: string; // for API errors later
+    email?: string
+    password?: string
 }
 
 export const Login = () => {
     const [formData, setFormData] = useState({ email: "", password: "" })
     const [error, setError] = useState<FormErrors>({})
     const [isLoading, setLoading] = useState(false)
-    const { login } = useAuth()
+    const { login, authError, clearAuthError } = useAuth()
     const navigate = useNavigate()  
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(pre => ({ ...pre, [event.target.name]: event.target.value }))
+
         if (error[event.target.name as keyof FormErrors]) {
             setError(prev => {
                 const newError = { ...prev }
                 delete newError[event.target.name as keyof FormErrors]
                 return newError
             })
+        }
+
+        if (authError) {
+            clearAuthError()
         }
     }
 
@@ -38,35 +41,30 @@ export const Login = () => {
         if (!formData.email) {
             newErrors.email = "Email is required"
         }
-
         if (!formData.password) {
             newErrors.password = "Password is required"
         }
-
         if (Object.keys(newErrors).length > 0) {
             setError(newErrors)
             return
         }
-        console.log(formData)
 
-        try {
-            setLoading(true)
-            await login(formData.email, formData.password)
+        setLoading(true)
+        const success = await login(formData.email, formData.password)
+        setLoading(false)
+
+        if (success) {
             navigate('/host')
-        } catch (err: any) {
-            setError({ api: parseFirebaseError({ code: err.code }) })
-        } finally {
-            setLoading(false)
         }
     }
-    console.log(error)
+
     return (
         <div className=" w-full  flex justify-center items-center">
             <div className="p-5 w-full rounded text-center">
                 <H2>Sign in to your account</H2>
-                {error.api && (
+                {authError && (
                     <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                        {error.api}
+                        {authError}
                     </div>
                 )}
                 <form onSubmit={handleSubmit}>
@@ -94,12 +92,7 @@ export const Login = () => {
 
                     <Button type="submit">{isLoading ? 'Sigining in ...' : "Sign in"}</Button>
                 </form>
-
-
-
-
                 <Ptag>Don’t have an account? <span className="text-[#FF8C38]">Create one now</span></Ptag>
-
             </div>
         </div>
     )

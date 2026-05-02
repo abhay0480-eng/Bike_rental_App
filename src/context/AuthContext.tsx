@@ -1,16 +1,19 @@
-import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut, type User } from "firebase/auth";
+import { onAuthStateChanged, type User } from "firebase/auth"
+import { authService } from "../service/auth.service";
 import { createContext, useContext, useEffect, useState, type ReactNode } from "react";
 import { auth } from "../config/firebase";
 
 
-interface AuthContextType {
-    user: User | null,
-    loading: boolean,
-    signup: (email: string, password: string) => Promise<void>
-    login: (email: string, password: string) => Promise<void>
-    logout: () => Promise<void>
-}
 
+interface AuthContextType {
+    user: User | null
+    loading: boolean
+    authError: string | null
+    clearAuthError: () => void
+    signup: (email: string, password: string) => Promise<boolean>
+    login: (email: string, password: string) => Promise<boolean>
+    logout: () => Promise<boolean>
+}
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
 
@@ -25,31 +28,41 @@ export const useAuth = () => {
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const [user, setUser] = useState<User | null>(null)
     const [loading, setLoading] = useState(true)
+    const [authError, setAuthError] = useState<string | null>(null)
 
-
+    const clearAuthError = () => setAuthError(null)
 
     const login = async (email: string, password: string) => {
-        try {
-            await signInWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            throw error
+        setAuthError(null)
+        const result = await authService.loginWithEmail(email, password)
+
+        if (!result.success) {
+            setAuthError(result.error || 'Login failed')
+            return false
         }
+        return true
     }
 
     const signup = async (email: string, password: string) => {
-        try {
-            await createUserWithEmailAndPassword(auth, email, password)
-        } catch (error) {
-            throw error
+        setAuthError(null)
+        const result = await authService.signupWithEmail(email, password)
+
+        if (!result.success) {
+            setAuthError(result.error || 'Signup failed')
+            return false
         }
+        return true
     }
 
     const logout = async () => {
-        try {
-            await signOut(auth)
-        } catch (error) {
-            throw error
+        setAuthError(null)
+        const result = await authService.logout()
+
+        if (!result.success) {
+            setAuthError(result.error || 'Logout failed')
+            return false
         }
+        return true
     }
 
     useEffect(() => {
@@ -64,6 +77,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const value: AuthContextType = {
         user,
         loading,
+        authError,
+        clearAuthError,  
         signup,
         login,
         logout
