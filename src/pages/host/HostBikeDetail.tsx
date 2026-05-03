@@ -1,13 +1,7 @@
 import { useOutletContext } from "react-router"
 import { Ptag } from "../../ui/typography/PTag"
-interface Bike {
-    id: string
-    name: string
-    imageUrl: string
-    price: number
-    type: string
-    description: string
-}
+import type { Bike } from "../../api/type"
+
 
 
 export const HostBikeDetail = () => {

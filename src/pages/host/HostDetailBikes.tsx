@@ -4,15 +4,9 @@ import { H2 } from "../../ui/typography/H2"
 import { Chip } from "../../ui/sharedUiComponents/Chip"
 import { Ptag } from "../../ui/typography/PTag"
 import { ShimHostBikeDetailUI } from '../../ui/ShimmerUI/ShimHostBikeDetailUI'
+import { getBikeById } from "../../api/bikes"
+import type { Bike } from "../../api/type"
 
-interface Bike {
-    id: string
-    name: string
-    imageUrl: string
-    price: number
-    type: string
-    description: string
-}
 
 export const HostDetailBikes = () => {
     const param = useParams()  
@@ -25,9 +19,8 @@ export const HostDetailBikes = () => {
     const getBikeDetail = async () => {
         try {
             setIsLoading(true)
-            const reqBikeDetail = await fetch(`https://bike-rental-server-srsy.onrender.com/api/${param.id}`)
-            const resBikeDetail = await reqBikeDetail.json()
-            setBikeDetail(resBikeDetail[0])
+            const data = await getBikeById(param.id)
+            setBikeDetail(data)
         } catch (error) {
             throw new Error(error instanceof Error ? error.message : String(error))
         } finally {

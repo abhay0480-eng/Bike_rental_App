@@ -3,27 +3,21 @@ import { Link } from "react-router"
 import { H2 } from "../../ui/typography/H2"
 import { Ptag } from "../../ui/typography/PTag"
 import { ShimHostBikesUI } from "../../ui/ShimmerUI/ShimHostBikesUI"
+import { getHostBikes } from "../../api/bikes"
+import type { Bike } from "../../api/type"
 
-interface Bike {
-    id: string
-    name: string
-    imageUrl: string
-    price: number
-    type: string
-    description: string
-}
+
 
 export const HostBikes = () => {
     const [hostBikeList, setHostBikeList] = useState<Bike[]>([])
     const [isLoading, setIsLoading] = useState(false)
 
 
-    const getHostBikes = async () => {
+    const getHostBike = async () => {
         try {
             setIsLoading(true)
-            const reqHostBikes = await fetch("https://bike-rental-server-srsy.onrender.com/api/host/bikes/123")
-            const resHostBikes = await reqHostBikes.json()
-            setHostBikeList(resHostBikes)
+            const data = await getHostBikes('123')
+            setHostBikeList(data)
         } catch (error) {
             console.log(error)
         } finally {
@@ -32,7 +26,7 @@ export const HostBikes = () => {
     }
 
     useEffect(() => {
-        getHostBikes()
+        getHostBike()
     }, [])
 
     const displayHostBikesList = hostBikeList.map((bike) => {

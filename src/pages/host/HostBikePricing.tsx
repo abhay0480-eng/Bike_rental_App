@@ -1,12 +1,6 @@
 import { useOutletContext } from "react-router"
-interface Bike {
-    id: string
-    name: string
-    imageUrl: string
-    price: number
-    type: string
-    description: string
-}
+import type { Bike } from "../../api/type"
+
 
 
 export const HostBikePricing = () => {
