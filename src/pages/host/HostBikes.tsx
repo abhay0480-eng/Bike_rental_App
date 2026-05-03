@@ -16,7 +16,7 @@ export const HostBikes = () => {
     const getHostBike = async () => {
         try {
             setIsLoading(true)
-            const data = await getHostBikes('123')
+            const data = await getHostBikes()
             setHostBikeList(data)
         } catch (error) {
             console.log(error)

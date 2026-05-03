@@ -17,7 +17,7 @@ export const BikeDetail = () => {
 
         try {
             setIsLoading(true)
-            const data = await getBikeById(param.id)
+            const data = await getBikeById(param.id as string)
             setBikeDetail(data)
         } catch (error) {
             console.error('Failed to fetch bike:', error)
