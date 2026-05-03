@@ -10,7 +10,6 @@ import type { Bike } from "../../api/type"
 
 export const HostDetailBikes = () => {
     const param = useParams()  
-    console.log("param", param.id)
 
     const [bikeDetail, setBikeDetail] = useState<Bike | null>(null)
     const [isLoading, setIsLoading] = useState(false)
@@ -19,7 +18,7 @@ export const HostDetailBikes = () => {
     const getBikeDetail = async () => {
         try {
             setIsLoading(true)
-            const data = await getBikeById(param.id)
+            const data = await getBikeById(param.id as string)
             setBikeDetail(data)
         } catch (error) {
             throw new Error(error instanceof Error ? error.message : String(error))
