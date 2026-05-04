@@ -61,7 +61,7 @@ export const Income = () => (
                             borderRadius: 12,
                             fontSize: 12,
                         }}
-                        formatter={(v: number) => [`₹${v}`, "Earned"]}
+                        formatter={(v) => [`₹${Number(v)}`, "Earned"]}
                     />
                     <Bar dataKey="amt" fill="#FF8C38" radius={[6, 6, 0, 0]} />
                 </BarChart>

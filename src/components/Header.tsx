@@ -9,10 +9,6 @@ const NAV_LINKS = [
     { to: "/host",  label: "Host"  },
 ]
 
-const activeClass =
-    "text-orange-500 font-bold"
-const inactiveClass =
-    "text-slate-600 hover:text-slate-900 transition-colors duration-200"
 
 export const Header = () => {
     const { user, logout } = useAuth()
