@@ -1,22 +1,18 @@
-export const ShimHostBikesUI = () => {
-    return (
-        <>
-            {[...Array(10)].map((_, index) => (
-                <div key={index} className="">
-                    <div className="bg-[#FFEAD0] w-full p-5  flex justify-between items-center my-5 rounded">
-                        <div className="flex gap-4">
-                            <div className="w-16 h-16 bg-gray-200 animate-pulse rounded"></div>
-                            <div className="">
-                                <div className="px-5 py-2 w-12 my-4 animate-pulse bg-gray-200 rounded"></div>
-                                <div className="px-5 py-2 w-12 animate-pulse bg-gray-200 rounded"></div>
-                            </div>
-                        </div>
-                        <div>
-                            <p>Edit</p>
-                        </div>
-                    </div>
+/* Shimmer for host bikes list — matches the new BikeRow layout */
+export const ShimHostBikesUI = ({ count = 5 }: { count?: number }) => (
+    <>
+        {Array.from({ length: count }).map((_, i) => (
+            <div key={i} className="flex items-center gap-4 p-4">
+                {/* thumbnail */}
+                <div className="w-14 h-14 rounded-xl bg-slate-200 animate-pulse shrink-0" />
+                {/* text */}
+                <div className="flex-1 flex flex-col gap-2">
+                    <div className="h-3.5 w-2/5 bg-slate-200 animate-pulse rounded" />
+                    <div className="h-3   w-1/4 bg-slate-200 animate-pulse rounded" />
                 </div>
-            ))}
-        </>
-    );
-};
+                {/* chip placeholder */}
+                <div className="hidden sm:block h-5 w-16 bg-slate-200 animate-pulse rounded-full shrink-0" />
+            </div>
+        ))}
+    </>
+)

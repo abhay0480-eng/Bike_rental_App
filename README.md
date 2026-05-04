@@ -33,6 +33,7 @@ A modern bike rental platform built with **React 19**, **TypeScript**, and **Tai
 | Icons         | Lucide React                      |
 | Utilities     | clsx + tailwind-merge (`cn`)      |
 | Linting       | ESLint + eslint-plugin-react-hooks|
+| Authentication| Firebase Auth                     |
 | Deployment    | Vercel                            |
 
 ---
@@ -103,6 +104,12 @@ src/
 - **Bike Detail Tabs** — Nested routes for Details / Pricing / Photos using `Outlet` + `useOutletContext`
 - **Active Sub-Navigation** — Wavy/solid underline decoration for active host sub-routes
 
+### Authentication & Security
+- **Firebase Authentication** — Secure email/password login and session management via Context API (`useAuth`)
+- **Protected Routes** — Automatic redirection to login for unauthenticated users accessing host features
+- **Auth-Aware UI** — Dynamic navigation header (Login/Logout) based on current auth state
+- **Smart Redirects** — Saves attempted destination (`location.state`) to redirect users back post-login
+
 ### UX
 - **Shimmer Loading Skeletons** — Dedicated, reusable skeleton components with `animate-pulse` shown during API calls
 - **Loading State Management** — `isLoading` state with `try/catch/finally` pattern across all data fetchers
@@ -118,7 +125,8 @@ src/
 ├── about                   → About
 ├── bikes                   → Bikes (with ?type= search params)
 ├── bikes/:id               → BikeDetail
-└── host                    → Host (nested layout with sub-nav)
+├── login                   → Login (auth gateway)
+└── host                    → ProtectedRoute → Host (nested layout)
     ├── (index)             → Dashboard
     ├── income              → Income
     ├── reviews             → Reviews
@@ -131,6 +139,7 @@ src/
 
 **Key patterns:**
 - **Layout route** (`Layout.tsx`) wraps all pages with `Header` + `Footer`
+- **Protected Routes** — `ProtectedRoute.tsx` guards the `/host` tree, redirecting to `/login` if unauthenticated
 - **Nested layouts** — `Host.tsx` and `HostDetailBikes.tsx` use `<Outlet />` for nested child routes
 - **Shared context** — `HostDetailBikes` passes `bikeDetail` to child tabs via `<Outlet context={{ bikeDetail }} />`
 - **Search params** — `Bikes.tsx` uses `useSearchParams` for URL-based type filtering
@@ -184,8 +193,12 @@ All skeletons use Tailwind's `animate-pulse` on individual elements for smooth l
 
 ---
 
-## 🔌 API Integration
+## 🔌 API & Firebase Integration
 
+### Authentication
+User authentication and session state are managed via **Firebase Auth**. The `AuthContext` provides login, logout, and user state globally.
+
+### Backend Data
 All data is fetched from the live backend deployed on Render:
 
 | Endpoint | Method | Used In | Description |

@@ -11,7 +11,7 @@ type FormErrors = {
 }
 
 export const Login = () => {
-    const [formData, setFormData] = useState({ email: "", password: "" })
+    const [formData, setFormData] = useState({ email: "test@test.com", password: "123456" })
     const [error, setError] = useState<FormErrors>({})
     const [isLoading, setLoading] = useState(false)
     const { login, authError, clearAuthError } = useAuth()
