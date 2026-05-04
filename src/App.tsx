@@ -18,6 +18,7 @@ import { NotFound } from "./pages/NotFound.tsx"
 
 
 import { auth } from './config/firebase'
+import { ProtectedRoute } from "./components/ProtectedRoute.tsx"
 function App() {
 
   console.log("Firebase Auth initialized:", auth)
@@ -33,8 +34,8 @@ function App() {
             <Route path="login" element={<Login />} />
             <Route path="bikes" element={<Bikes />} />
             <Route path="bikes/:id" element={<BikeDetail />} />
-            {/* <Route path="" element={<AuthRequired />}> */}
-            <Route path="host" element={<Host />}>
+            <Route path="host" element={<ProtectedRoute />}>
+              <Route path="" element={<Host />}>
               <Route index element={<Dashboard />} />
               <Route path="bikes" element={<HostBikes />} />
               <Route path="bikes/:id" element={<HostDetailBikes />} >
@@ -46,8 +47,7 @@ function App() {
               <Route path="income" element={<Income />} />
             </Route>
           </Route>
-
-          {/* </Route> */}
+          </Route>
         </Routes>
       </BrowserRouter>
     </>

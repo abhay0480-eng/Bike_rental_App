@@ -3,7 +3,7 @@ import { Button } from "../ui/sharedUiComponents/Button"
 import { H2 } from "../ui/typography/H2"
 import { Ptag } from "../ui/typography/PTag"
 import { useAuth } from "../context/AuthContext"
-import { useNavigate } from "react-router"
+import { useNavigate, useLocation } from "react-router"
 
 type FormErrors = {
     email?: string
@@ -16,6 +16,8 @@ export const Login = () => {
     const [isLoading, setLoading] = useState(false)
     const { login, authError, clearAuthError } = useAuth()
     const navigate = useNavigate()  
+    const location = useLocation()
+    const from = location.state?.from || '/host'
 
     const handleInput = (event: React.ChangeEvent<HTMLInputElement>) => {
         setFormData(pre => ({ ...pre, [event.target.name]: event.target.value }))
@@ -54,7 +56,7 @@ export const Login = () => {
         setLoading(false)
 
         if (success) {
-            navigate('/host')
+            navigate(from, { replace: true })
         }
     }
 
