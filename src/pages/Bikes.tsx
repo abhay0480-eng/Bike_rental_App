@@ -29,7 +29,7 @@ const BikeCard = ({ bike, search }: { bike: BikeType; search: string }) => (
                    transition-all duration-300 hover:-translate-y-1"
     >
         {/* image */}
-        <div className="relative overflow-hidden bg-slate-50 aspect-[4/3]">
+        <div className="relative overflow-hidden bg-slate-50 aspect-4/3">
             <img
                 src={bike.imageUrl}
                 alt={bike.name}
