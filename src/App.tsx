@@ -19,6 +19,7 @@ import { NotFound } from "./pages/NotFound.tsx"
 
 import { auth } from './config/firebase'
 import { ProtectedRoute } from "./components/ProtectedRoute.tsx"
+import { SignUp } from "./pages/SignUp.tsx"
 function App() {
 
   console.log("Firebase Auth initialized:", auth)
@@ -32,6 +33,7 @@ function App() {
             <Route path="about" element={<About />} />
             <Route path="*" element={<NotFound />} />
             <Route path="login" element={<Login />} />
+            <Route path="signup" element={<SignUp />} />
             <Route path="bikes" element={<Bikes />} />
             <Route path="bikes/:id" element={<BikeDetail />} />
             <Route path="host" element={<ProtectedRoute />}>

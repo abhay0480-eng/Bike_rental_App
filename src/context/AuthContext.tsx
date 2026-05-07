@@ -16,7 +16,7 @@ interface AuthContextType {
 }
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
 
-
+// custom hook
 export const useAuth = () => {
     const context = useContext(AuthContext)
     if (context === undefined) {
@@ -65,6 +65,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         return true
     }
 
+
+
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
             setUser(currentUser)
@@ -81,7 +83,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         clearAuthError,  
         signup,
         login,
-        logout
+        logout,
+
     }
 
     return (
