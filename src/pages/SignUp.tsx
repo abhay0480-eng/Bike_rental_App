@@ -1,5 +1,6 @@
 import { useState } from "react"
 import { useAuth } from "../context/AuthContext.js"
+import { useNavigate } from "react-router"
 
 type FormErrors = {
     email?: string,
@@ -11,7 +12,10 @@ type FormErrors = {
 }
 
 type UserRole = "host" | "renter"
+
+
 export const SignUp = () => {
+    const navigate = useNavigate()
     const [formData, setFormData] = useState({
         fullName: "",
         email: "",
@@ -23,6 +27,8 @@ export const SignUp = () => {
     })
     const { signup, authError, clearAuthError } = useAuth()
     const [errors, setErrors] = useState({})
+
+
 
     const validateForm = () => {
         const newErrors: FormErrors = {}
@@ -83,8 +89,48 @@ export const SignUp = () => {
             if (!success) {
                 return
             }
-        } catch (error) {
 
+            const { auth } = await import('../config/firebase.js')
+            const user = auth.currentUser
+
+            if (!user) {
+                throw new Error('User not Authenticated')
+            }
+
+            const token = await user.getIdToken()
+
+
+            const response = await fetch("https://bike-rental-server-srsy.onrender.com/api/users", {
+                method: "POST",
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer${token}`
+                },
+                body: JSON.stringify({
+                    role: formData.role,
+                    fullName: formData.fullName,
+                    city: formData.city,
+                    phone: formData.phone
+                })
+            })
+
+            if (!response.ok) {
+                const errorData = await response.json()
+                throw new Error(errorData.error || 'Failed to create user profile')
+            }
+            const userData = await response.json()
+            console.log('User profile created:', userData)
+
+            if (formData.role === "host") {
+                navigate('/host', { replace: true })
+            } else {
+                navigate('/bikes', { replace: true })
+
+            }
+        } catch (error: any) {
+            setErrors({ email: error.message || "SignUp failed. Please ttry again" })
+        } finally {
+        // setLoading(false)
         }
         console.log("formData", formData)
     }
