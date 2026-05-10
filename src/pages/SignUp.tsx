@@ -17,13 +17,13 @@ type UserRole = "host" | "renter"
 
 export const SignUp = () => {
     const [formData, setFormData] = useState({
-        email: "",
-        password: "",
-        confirmPassword: "",
-        fullName: "",
-        phone: "",
-        role: "" as UserRole | "",
-        city: ""
+        email: "testsignup@test.com",
+        password: "123456",
+        confirmPassword: "123456",
+        fullName: "Test Sign up",
+        phone: "7073223343",
+        role: "renter" as UserRole | "",
+        city: "Aligarh"
     })
     const [error, setError] = useState<FormErrors>({})
     const [isLoading, setLoading] = useState(false)
