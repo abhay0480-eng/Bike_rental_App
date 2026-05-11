@@ -4,6 +4,7 @@ import { SlidersHorizontal, X, Bike } from "lucide-react"
 import { ShimBikesListing } from "../ui/ShimmerUI/ShimBikesListing"
 import { getAllBikes } from "../api/bikes"
 import type { Bike as BikeType } from "../api/type"
+import { memo } from "react"
 
 /* ─── filter config ───────────────────────────────────────────── */
 const FILTERS = [
@@ -20,7 +21,7 @@ const chipColors: Record<string, string> = {
     rugged:  "bg-stone-100 text-stone-700",
 }
 
-const BikeCard = ({ bike, search }: { bike: BikeType; search: string }) => (
+const BikeCard = memo(({ bike, search }: { bike: BikeType; search: string }) => (
     <Link
         to={`/bikes/${bike.id}`}
         state={{ search }}
@@ -62,7 +63,7 @@ const BikeCard = ({ bike, search }: { bike: BikeType; search: string }) => (
             </p>
         </div>
     </Link>
-)
+))
 
 /* ─── empty state ─────────────────────────────────────────────── */
 const EmptyState = ({ onClear }: { onClear: () => void }) => (
@@ -187,3 +188,6 @@ export const Bikes = () => {
         </div>
     )
 }
+
+
+
