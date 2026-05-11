@@ -86,7 +86,7 @@ const ValueCard = ({
 }
 
 /* ─── main page ───────────────────────────────────────────────── */
-export const About = () => {
+const About = () => {
     const missionRef = useInView(0.1)
     const timelineRef = useInView(0.1)
     const teamRef    = useInView(0.1)
@@ -323,3 +323,5 @@ export const About = () => {
         </div>
     )
 }
+
+export default About
