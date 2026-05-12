@@ -100,6 +100,8 @@ const About = () => {
                 <img
                     src="https://res.cloudinary.com/dguqivg6t/image/upload/samples/bikes/ChatGPT_Image_Apr_28_2026_01_05_21_PM_czbzas.png"
                     alt="Riders on a scenic road"
+                    loading="eager"
+                    decoding="async"
                     className="absolute inset-0 w-full h-full object-cover object-center"
                 />
                 {/* gradient overlay */}
@@ -174,6 +176,8 @@ const About = () => {
                             <img
                                 src="https://res.cloudinary.com/dguqivg6t/image/upload/samples/bikes/ChatGPT_Image_Apr_28_2026_01_05_21_PM_czbzas.png"
                                 alt="Bike on mountain road"
+                                loading="eager"
+                                decoding="async"
                                 className="w-full h-full object-cover"
                             />
                         </div>

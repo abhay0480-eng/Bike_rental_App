@@ -64,6 +64,8 @@ export const HostDetailBikes = () => {
                         <div className="w-full sm:w-36 h-36 rounded-xl overflow-hidden shrink-0 bg-slate-100">
                             <img
                                 src={bikeDetail.imageUrl}
+                                    loading="eager"
+                                    decoding="async"
                                 alt={bikeDetail.name}
                                 className="w-full h-full object-cover"
                             />

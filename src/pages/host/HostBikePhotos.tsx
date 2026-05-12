@@ -7,7 +7,7 @@ export const HostBikePhotos = () => {
     const { bikeDetail } = useOutletContext<{ bikeDetail: Bike | null }>()
     return (
         <div>
-            <img src={bikeDetail?.imageUrl} alt="" className="w-16" />
+            <img loading="lazy" decoding="async" src={bikeDetail?.imageUrl} alt="" className="w-16" />
         </div>
     )
 }

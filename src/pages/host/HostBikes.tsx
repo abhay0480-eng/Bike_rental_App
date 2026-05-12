@@ -84,6 +84,8 @@ export const HostBikes = () => {
                                     <div className="w-14 h-14 rounded-xl overflow-hidden shrink-0 bg-slate-100">
                                         <img
                                             src={bike.imageUrl}
+                                            loading="lazy"
+                                            decoding="async"
                                             alt={bike.name}
                                             className="w-full h-full object-cover group-hover:scale-105
                                                        transition-transform duration-300"

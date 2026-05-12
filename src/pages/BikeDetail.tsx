@@ -72,6 +72,8 @@ export const BikeDetail = () => {
                             <div className="rounded-2xl overflow-hidden bg-slate-100 shadow-md aspect-[4/3]">
                                 <img
                                     src={bike.imageUrl}
+                                        loading="eager"
+                                        decoding="async"
                                     alt={bike.name}
                                     className="w-full h-full object-cover"
                                 />
