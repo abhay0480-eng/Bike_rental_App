@@ -4,6 +4,7 @@ import { SlidersHorizontal, X, Bike } from "lucide-react"
 import { ShimBikesListing } from "../ui/ShimmerUI/ShimBikesListing"
 import { getAllBikes } from "../api/bikes"
 import type { Bike as BikeType } from "../api/type"
+import { ErrorBoundary } from "../components/ErrorBoundary"
 
 const FILTERS = [
     { label: "All", value: "" },
@@ -163,11 +164,35 @@ export const Bikes = () => {
                       <EmptyState onClear={handleClear} />
                   ) : (
                       bikesData.map((bike) => (
-                          <BikeCard
+                          <ErrorBoundary
                               key={bike.id}
-                              bike={bike}
-                              search={searchParams.toString()}
-                          />
+                              // ⚠️ key goes on ErrorBoundary, not BikeCard
+                              // Because ErrorBoundary is now the outer element
+                              // React uses key to identify each item in the list
+
+                              fallback={
+                                  // Custom fallback that matches BikeCard dimensions
+                                  // So the grid layout doesn't break when one card errors
+                                  <div className="bg-white rounded-2xl overflow-hidden
+                      border border-red-100 shadow-sm p-6
+                      flex flex-col items-center justify-center
+                      text-center aspect-[4/3]">
+                                      <p className="text-2xl mb-2">⚠️</p>
+                                      <p className="font-bold text-slate-700 text-sm">
+                                          Failed to load bike
+                                      </p>
+                                      <p className="text-slate-400 text-xs mt-1">
+                                          This listing has an issue
+                                      </p>
+                                  </div>
+                              }
+                          >
+                              <BikeCard
+                                  bike={bike}
+                                  search={searchParams.toString()}
+                                  // No key here anymore — moved to ErrorBoundary above
+                              />
+                          </ErrorBoundary>
                       ))
                   )}
               </div>
